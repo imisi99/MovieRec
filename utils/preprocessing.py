@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+
+
 def preprocessing(filepath: str) -> [pd.DataFrame, pd.DataFrame]:
     df = pd.read_csv(filepath)
     print("Data before preprocessing")
@@ -20,16 +22,16 @@ def preprocessing(filepath: str) -> [pd.DataFrame, pd.DataFrame]:
     print(df.head())
     return df, metadata
 
-def create_synthetic_ratings(movie: pd.DataFrame) -> pd.DataFrame:
+
+def create_synthetic_ratings(movie: pd.DataFrame) -> np.array:
     np.random.seed(42)
     num = movie.shape[0]
-    target = np.random.uniform(0.5, 1, num) * 5
-    target = pd.DataFrame(target, columns=["rating"])
+    target = np.random.uniform(0.1, 1, num) * 5
     return target
 
-def create_synthetic_users(movie: pd.DataFrame) -> pd.DataFrame:
+
+def create_synthetic_users(movie: pd.DataFrame) -> np.array:
     np.random.seed(42)
     num, row = movie.shape
-    user = np.random.random_integers(0, 1, (num, row))
-    user = pd.DataFrame(user, columns=movie.columns)
+    user = np.random.randint(0, 2, (num, row))
     return user
